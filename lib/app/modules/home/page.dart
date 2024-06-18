@@ -12,16 +12,15 @@ class HomePage extends GetView<HomeController> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Obx(() => ListView(
+        child: ListView(
              children: [
                ListTile(
-                 title:  Text('Horti Verde'),
+                 title:  Text('Aberto'),
                  leading: FlutterLogo(),
                  trailing: Text('Aberto'),
                )
              ],
           ),
-        )
       ),
     );
   }
