@@ -12,14 +12,22 @@ class HomePage extends GetView<HomeController> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: ListView(
+        child: controller.obx((state) => ListView(
              children: [
-               ListTile(
-                 title:  Text('Aberto'),
-                 leading: FlutterLogo(),
-                 trailing: Text('Aberto'),
-               )
-             ],
+                for(var store in state!)
+                  ListTile(
+                     title:  Text(store.name),
+                     leading: FlutterLogo(),
+                     trailing: Text(store.isOnline ? 'Aberto' : 'Fechado'),
+                   )
+               ],
+            ),
+            onEmpty: Center(
+                child: Text(
+                    'Não tem nenhum estabelecimento disponível para a sua cidade.',
+                    textAlign: TextAlign.center,
+                )
+            ),
           ),
       ),
     );
