@@ -30,7 +30,7 @@ class StorePage extends GetView<StoreController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              store!.name,
+                              store.name,
                               style: Get.textTheme.titleLarge,
                           ),
                           SizedBox(height: 8),
