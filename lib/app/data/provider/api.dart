@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:app_hortifruti_pratico/app/data/models/store.dart';
 import 'package:get/get_connect.dart';
 import 'package:get/get_connect/http/src/request/request.dart';

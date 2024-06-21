@@ -14,7 +14,7 @@ class ProductModel {
     required this.name,
     required this.price,
     required this.unitOfMeasure,
-    required this.image,
+    this.image,
     this.description,
   });
 
