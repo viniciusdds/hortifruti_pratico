@@ -1,4 +1,5 @@
 import 'package:app_hortifruti_pratico/app/modules/store/controller.dart';
+import 'package:app_hortifruti_pratico/app/routes/routes.dart';
 import 'package:app_hortifruti_pratico/app/widgets/store_status.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -79,7 +80,7 @@ class StorePage extends GetView<StoreController> {
                           for (var product in category.products)
                             ListTile(
                               title: Text(product.name),
-                              subtitle: Text(NumberFormat.simpleCurrency().format(double.parse(product.price))),
+                              subtitle: Text(NumberFormat.simpleCurrency().format(double.parse(product.price)) + (product.isKg ? '/kg' : '')),
                               leading: product.image != null
                                 ? SizedBox(
                                     width: 56,
@@ -92,9 +93,13 @@ class StorePage extends GetView<StoreController> {
                                       ),
                                     ),
                                 ) : null,
-                               onTap: (){
-
-                               },
+                               onTap: () => Get.toNamed(
+                                   Routes.product,
+                                   arguments: {
+                                     'product': product,
+                                     'store': store
+                                   }
+                               ),
                             )
                         ],
                       );
