@@ -22,8 +22,22 @@ class ProductController extends GetxController {
      super.onInit();
   }
 
-  void addToCart(){
-    var quantity = Get.find<QuantityAndWeightController>().quantity;
+  void addToCart() async {
+     var quantity = Get.find<QuantityAndWeightController>().quantity;
+
+     if(_cartService.isANewStore(store.value!)){
+        var startNewCart = await showDialogNewCart();
+
+        if(startNewCart == true){
+          _cartService.clearCart();
+        }else{
+          return;
+        }
+     }
+
+     if(_cartService.products.isEmpty){
+        _cartService.newCart(store.value!);
+     }
 
      _cartService.addProductToCart(
        CartProductModel(
@@ -32,18 +46,35 @@ class ProductController extends GetxController {
            observation: observationController.text
        )
      );
-     
+
      ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
        SnackBar(
-         content: Text('o item  '+ product.value!.name + ' foi adicionado no carrinho'),
+         content: Text('o item  ${product.value!.name}  foi adicionado no carrinho'),
        )
      );
 
      Future.delayed(
-         const Duration(milliseconds:  300),
+         const Duration(milliseconds:  1000),
          () => Get.back()
      );
+  }
 
+  Future<dynamic> showDialogNewCart() {
+    return Get.dialog(
+       AlertDialog(
+        content: const Text('Seu carrinho será perdido se adicionar produtos de um novo estabelecimento.'),
+        actions: [
+          TextButton(
+              onPressed: () => Get.back(result: false),
+              child: const Text('Voltar')
+          ),
+          TextButton(
+              onPressed: () => Get.back(result: true),
+              child: const Text('Continuar')
+          ),
+        ],
+      )
+    );
   }
 
 }
