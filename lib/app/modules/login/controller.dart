@@ -1,12 +1,22 @@
+import 'package:app_hortifruti_pratico/app/data/models/user_login_request.dart';
+import 'package:app_hortifruti_pratico/app/data/services/auth/service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
 
+  final _authService = Get.find<AuthService>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
 
   void login(){
+    var userLogRequestModel = UserLoginRequestModel(
+        email: emailController.text,
+        password: passwordController.text
+    );
 
+    _authService.login(
+        userLogRequestModel
+    ).then((value) => null);
   }
 }
