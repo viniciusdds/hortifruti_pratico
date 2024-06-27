@@ -16,10 +16,16 @@ class CheckoutPage extends GetView<CheckoutController> {
         child: Obx(() => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: OutlinedButton(
-                    onPressed: controller.goToLogin,
-                    child: Text('Entre com a sua conta para cadastrar')
+              Visibility(
+                visible: !controller.isLogged,
+                child: Center(
+                  child: OutlinedButton(
+                      onPressed: controller.goToLogin,
+                      child: Text('Entre com a sua conta para cadastrar')
+                  ),
+                ),
+                replacement: Center(
+                  child: Text("Seja bem vindo Vinicius"),
                 ),
               ),
               Padding(
