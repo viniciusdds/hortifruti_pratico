@@ -31,7 +31,6 @@ class CheckoutController extends GetxController {
   @override
   void onInit() {
     print(_cartService.store.value!.paymentMethod);
-    print('teste');
     super.onInit();
   }
 
