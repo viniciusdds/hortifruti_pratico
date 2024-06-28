@@ -44,13 +44,18 @@ class CheckoutPage extends GetView<CheckoutController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Visibility(
-                        visible: controller.addresses.isEmpty,
-                        child: OutlinedButton(
-                          onPressed: controller.goToNewAddress,
-                          child: const Text('Cadastrar um endereço'),
-                        ),
-                      ),
+                      if(controller.addresses.isNotEmpty) ...[
+                          Expanded(child: _buildAddress()),
+                          TextButton(
+                            onPressed: controller.showAddressList,
+                            child: Text('Alterar'),
+                          ),
+                      ]
+                      else
+                          OutlinedButton(
+                            onPressed: controller.goToNewAddress,
+                            child: const Text('Cadastrar um endereço'),
+                          ),
                     ],
                   ),
                 ),
@@ -145,5 +150,10 @@ class CheckoutPage extends GetView<CheckoutController> {
         ),
       ),
     );
+  }
+
+  _buildAddress(){
+    var address = controller.addressSelected.value!;
+    return Text('${address.street}, n° ${address.number}, ${address.neighborhood}');
   }
 }

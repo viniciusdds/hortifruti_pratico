@@ -12,6 +12,7 @@ class UserAddressController extends GetxController with StateMixin<List<CityMode
 
   UserAddressController(this._repository);
 
+  final formKey = GlobalKey<FormState>();
   final _authService = Get.find<AuthService>();
   var streetController = TextEditingController(text: 'Rua Bosta');
   var numberController = TextEditingController(text: '69');
@@ -33,6 +34,12 @@ class UserAddressController extends GetxController with StateMixin<List<CityMode
   }
 
   void submit(){
+    Get.focusScope!.unfocus();
+
+    if(!formKey.currentState!.validate()){
+      return;
+    }
+
     var userAddressRequest = UserAddressRequestModel(
         street: streetController.text, 
         number: numberController.text,
