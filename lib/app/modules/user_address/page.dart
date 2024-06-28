@@ -10,7 +10,7 @@ class UserAddressPage extends GetView<UserAddressController> {
           title: Text('Novo endereço'),
           centerTitle: true,
       ),
-      body: SingleChildScrollView(
+      body: controller.obx((state) => SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
              horizontal: 16
@@ -76,6 +76,23 @@ class UserAddressPage extends GetView<UserAddressController> {
                 ),
               ),
 
+              DropdownButtonFormField(
+                      value: controller.cityId.value,
+                      items: state!.map((city) => DropdownMenuItem<int>(
+                          value: city.id,
+                          child: Text(city.name)
+                      )).toList(),
+                      onChanged: controller.changeCity,
+                      decoration: const InputDecoration(
+                        labelText: 'Cidade'
+                      ),
+                      validator: (int? value){
+                        if(value == null){
+                          return 'Selecione uma cidade';
+                        }
+                      },
+                  ),
+              const SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(
@@ -90,6 +107,7 @@ class UserAddressPage extends GetView<UserAddressController> {
                 ],
               )
             ],
+           )
           ),
         ),
       ),
