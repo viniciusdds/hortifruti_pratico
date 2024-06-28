@@ -16,6 +16,16 @@ class CheckoutPage extends GetView<CheckoutController> {
         child: Obx(() => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 16
+                ),
+                child: Text(
+                  'Endereço',
+                  style: Get.textTheme.titleLarge,
+                ),
+              ),
               Visibility(
                 visible: !controller.isLogged,
                 child: Center(
@@ -24,8 +34,22 @@ class CheckoutPage extends GetView<CheckoutController> {
                       child: Text('Entre com a sua conta para cadastrar')
                   ),
                 ),
-                replacement: Center(
-                  child: Text("Seja bem vindo Vinicius"),
+                replacement: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Visibility(
+                        visible: controller.addresses.isEmpty,
+                        child: OutlinedButton(
+                          onPressed: controller.goToNewAddress,
+                          child: const Text('Cadastrar um endereço'),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Padding(
