@@ -1,6 +1,7 @@
 import 'package:app_hortifruti_pratico/app/data/models/user_login_request.dart';
 import 'package:app_hortifruti_pratico/app/data/services/auth/service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
@@ -24,6 +25,14 @@ class LoginController extends GetxController {
 
     _authService.login(
         userLogRequestModel
-    ).then((value) => null);
+    ).then((value) {
+
+    }, onError: (error){
+      Get.dialog(
+        AlertDialog(
+          title: Text(error.toString()),
+        )
+      );
+    });
   }
 }
