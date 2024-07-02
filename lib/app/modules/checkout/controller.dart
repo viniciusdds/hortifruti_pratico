@@ -1,4 +1,5 @@
 import 'package:app_hortifruti_pratico/app/data/models/address.dart';
+import 'package:app_hortifruti_pratico/app/data/models/order_request.dart';
 import 'package:app_hortifruti_pratico/app/data/models/payment_method.dart';
 import 'package:app_hortifruti_pratico/app/data/models/shipping_by_city.dart';
 import 'package:app_hortifruti_pratico/app/data/services/auth/service.dart';
@@ -21,7 +22,6 @@ class CheckoutController extends GetxController {
   num get totalCart => _cartService.total;
   String get deliveryCost {
     if(getShippingByCity != null){
-      print('teste: ${getShippingByCity!.cost}');
       return getShippingByCity!.cost;
     }
 
@@ -44,6 +44,7 @@ class CheckoutController extends GetxController {
   final addresses = RxList<AddressModel>();
   final addressSelected = Rxn<AddressModel>();
   bool get deliveryToMyAddress => getShippingByCity != null;
+  bool get canSendOrder => isLogged && deliveryToMyAddress;
 
   @override
   void onInit() {
@@ -67,10 +68,10 @@ class CheckoutController extends GetxController {
   fetchAddresses(){
     _repository.getUserAddresses()
       .then((value) {
-       // addresses.addAll(value);
+        addresses.addAll(value);
 
         if(addresses.isNotEmpty){
-         // addressSelected.value = addresses.first;
+          addressSelected.value = addresses.first;
         }
 
         loading(false);
@@ -104,4 +105,41 @@ class CheckoutController extends GetxController {
      )
     );
   }
+
+  void sendOrder(){
+    if(paymentMethod.value == null){
+      ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+        SnackBar(content: Text('Escolha a forma de pagamento do seu pedido.'))
+      );
+
+      return;
+    }
+
+    var orderRequest = OrderRequestModel(
+        store:  _cartService.store.value!,
+        paymentMethod: paymentMethod.value!,
+        cartProducts: _cartService.products,
+        address: addressSelected.value!,
+        observation: _cartService.observation.value
+    );
+
+    _repository.postOrder(orderRequest).then((value){
+      Get.dialog(
+        AlertDialog(
+          title: Text('Pedido enviado'),
+          actions: [
+            TextButton(
+                onPressed: (){
+                  _cartService.finalizeCart();
+                  Get.offAllNamed(Routes.dashboard);
+                },
+                child: Text('Ver Meus Pedidos')
+            )
+          ],
+        ),
+        barrierDismissible: false,
+      );
+    });
+  }
+
 }

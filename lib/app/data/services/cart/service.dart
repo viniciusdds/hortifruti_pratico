@@ -30,4 +30,9 @@ class CartService extends GetxService {
     store.value = newStore;
   }
 
+  void finalizeCart(){
+    clearCart();
+    observation.value = '';
+  }
+
 }
