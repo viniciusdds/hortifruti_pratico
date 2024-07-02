@@ -1,13 +1,15 @@
-import 'package:app_hortifruti_pratico/app/modules/user_address/controller.dart';
+
+import 'package:app_hortifruti_pratico/app/modules/user_profile/controller.dart';
+import 'package:app_hortifruti_pratico/app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class UserAddressPage extends GetView<UserAddressController> {
+class UserProfilePage extends GetView<UserProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Novo endereço'),
+          title: Text('Meu Perfil'),
           centerTitle: true,
       ),
       body: controller.obx((state) => SingleChildScrollView(
@@ -16,84 +18,63 @@ class UserAddressPage extends GetView<UserAddressController> {
              horizontal: 16
           ),
           child: Form(
-            key: controller.formKey,
+           // key: controller.formKey,
             child: Column(
               children: [
                 TextFormField(
-                  controller: controller.streetController,
+                  controller: controller.nameController,
                   decoration: const InputDecoration(
-                    labelText: 'Rua',
+                    labelText: 'Nome',
                   ),
                   validator: (String? value){
                     if(value != null && value.isEmpty){
-                      return 'Preencha o nome da rua';
+                      return 'Preencha o seu nome';
                     }
 
                     return null;
                   },
                 ),
                 TextFormField(
-                  controller: controller.numberController,
+                  controller: controller.emailController,
                   decoration: const InputDecoration(
-                    labelText: 'Número',
+                    labelText: 'Email',
                   ),
                   validator: (String? value){
                     if(value != null && value.isEmpty){
-                      return 'Preencha o número da casa/apartamento';
+                      return 'Preencha o seu e-mail';
                     }
 
                     return null;
                   },
                 ),
                 TextFormField(
-                  controller: controller.neighborhoodController,
+                  controller: controller.phoneController,
                   decoration: const InputDecoration(
-                    labelText: 'Bairro',
+                    labelText: 'Telefone',
                   ),
                   validator: (String? value){
                     if(value != null && value.isEmpty){
-                      return 'Preencha o nome do bairro';
+                      return 'Preencha o seu número de telefone';
                     }
 
                     return null;
                   },
                 ),
                 TextFormField(
-                  controller: controller.referencePointController,
+                  controller: controller.passwordController,
                   decoration: const InputDecoration(
-                    labelText: 'Ponto de referência',
+                    labelText: 'Senha',
                   ),
+                  obscureText: true,
                   validator: (String? value){
                     if(value != null && value.isEmpty){
-                      return 'Informe um ponto de referência para o entregador';
+                      return 'Informe sua senha';
                     }
 
                     return null;
                   },
                 ),
-                TextFormField(
-                  controller: controller.complementController,
-                  decoration: const InputDecoration(
-                    labelText: 'Complemento',
-                  ),
-                ),
 
-                DropdownButtonFormField(
-                        value: controller.cityId.value,
-                        items: state!.map((city) => DropdownMenuItem<int>(
-                            value: city.id,
-                            child: Text(city.name)
-                        )).toList(),
-                        onChanged: controller.changeCity,
-                        decoration: const InputDecoration(
-                          labelText: 'Cidade'
-                        ),
-                        validator: (int? value){
-                          if(value == null){
-                            return 'Selecione uma cidade';
-                          }
-                        },
-                    ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Row(
@@ -101,17 +82,36 @@ class UserAddressPage extends GetView<UserAddressController> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: controller.submit,
-                          child: Text('Adicionar'),
+                          child: Text('Atualizar'),
                         ),
                       )
                     ],
                   ),
-                )
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: controller.logout,
+                        child: Text('Sair da minha conta'),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.red
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ],
              ),
-          )
+            )
           ),
         ),
+        onError: (error) => Center(
+          child: ElevatedButton(
+            child: const Text('Entrar com a minha conta'),
+            onPressed: () => Get.toNamed(Routes.login),
+          ),
+        )
       ),
     );
   }
