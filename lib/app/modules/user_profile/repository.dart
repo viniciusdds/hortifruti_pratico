@@ -8,5 +8,6 @@ class UserProfileRepository {
 
   Future<UserModel> getUser() => _api.getUser();
 
+  Future<UserModel> putUser(userProfileRequestModel) => _api.putUser(userProfileRequestModel);
 }
 

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:app_hortifruti_pratico/app/data/models/city.dart';
 
 class AddressModel {

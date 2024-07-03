@@ -8,6 +8,7 @@ import 'package:app_hortifruti_pratico/app/data/models/user.dart';
 import 'package:app_hortifruti_pratico/app/data/models/user_address_request.dart';
 import 'package:app_hortifruti_pratico/app/data/models/user_login_request.dart';
 import 'package:app_hortifruti_pratico/app/data/models/user_login_response.dart';
+import 'package:app_hortifruti_pratico/app/data/models/user_profile_request.dart';
 import 'package:app_hortifruti_pratico/app/data/services/storage/service.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:get/get.dart';
@@ -67,6 +68,12 @@ class Api extends GetConnect {
     var response = _errorHandler(await get('auth/me'));
 
     return UserModel.froJson(response.body);
+  }
+
+  Future<UserModel> putUser(UserProfileRequestModel data) async {
+     var response = _errorHandler(await put('cliente', jsonEncode(data)));
+
+     return UserModel.froJson(response.body);
   }
 
   Future<List<AddressModel>> getUserAddresses() async {

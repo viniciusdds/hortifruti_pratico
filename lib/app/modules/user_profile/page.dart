@@ -18,7 +18,7 @@ class UserProfilePage extends GetView<UserProfileController> {
              horizontal: 16
           ),
           child: Form(
-           // key: controller.formKey,
+            key: controller.formKey,
             child: Column(
               children: [
                 TextFormField(
@@ -67,8 +67,8 @@ class UserProfilePage extends GetView<UserProfileController> {
                   ),
                   obscureText: true,
                   validator: (String? value){
-                    if(value != null && value.isEmpty){
-                      return 'Informe sua senha';
+                    if(value != null && value.isNotEmpty && value.length < 8){
+                      return 'Informe uma senha válida e maior que 8 caracteres';
                     }
 
                     return null;
