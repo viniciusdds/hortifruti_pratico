@@ -5,9 +5,11 @@ import 'package:get/get.dart';
 class UserAddressPage extends GetView<UserAddressController> {
   @override
   Widget build(BuildContext context) {
+    var editing = controller.editing.isTrue;
+
     return Scaffold(
       appBar: AppBar(
-          title: Text('Novo endereço'),
+          title: Text(editing ? 'Editar endereço' : 'Novo endereço'),
           centerTitle: true,
       ),
       body: controller.obx((state) => SingleChildScrollView(
@@ -101,7 +103,7 @@ class UserAddressPage extends GetView<UserAddressController> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: controller.submit,
-                          child: Text('Adicionar'),
+                          child: Text(editing ? 'Atualizar' : 'Adicionar'),
                         ),
                       )
                     ],

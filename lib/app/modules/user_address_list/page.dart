@@ -27,7 +27,15 @@ class UserAddressListPage extends GetView<UserAddressListController> {
                   ],
                 ),
               ),
-               for(var address in state!)
+              if(state!.isEmpty)
+                const Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                      'Você não possui nenhum endereço cadastrado',
+                      textAlign: TextAlign.center,
+                  ),
+                ),
+              for(var address in state)
                  ListTile(
                    title: Text('${address.street}, n° ${address.number}'),
                    subtitle: Text('${address.neighborhood}, ${address.city!.name}'),
@@ -48,11 +56,12 @@ class UserAddressListPage extends GetView<UserAddressListController> {
                             controller.deleteAddress(address);
                          break;
                          case 'edit':
-
+                            controller.goToEditAddress(address);
                          break;
                        }
                      },
                    ),
+                   onTap: () => controller.goToEditAddress(address),
                  )
             ],
           )

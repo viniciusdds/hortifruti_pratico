@@ -10,5 +10,7 @@ class UserAddressRepository {
   Future<List<CityModel>> getCities() => _api.getCities();
 
   Future<void> postAddress(UserAddressRequestModel userAddressRequest) => _api.postAddress(userAddressRequest);
+
+  Future<void> putAddress(UserAddressRequestModel userAddressRequest) => _api.putAddress(userAddressRequest);
 }
 

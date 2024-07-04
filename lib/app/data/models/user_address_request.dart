@@ -1,4 +1,6 @@
 class UserAddressRequestModel {
+
+  int? id;
   String street;
   String number;
   String neighborhood;
@@ -7,6 +9,7 @@ class UserAddressRequestModel {
   int cityId;
 
   UserAddressRequestModel({
+      this.id,
       required this.street,
       required this.number,
       required this.neighborhood,
