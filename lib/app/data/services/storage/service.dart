@@ -21,6 +21,9 @@ class StorageService extends GetxService {
     return box.write(StorageKey.token.toString(), token);
   }
 
+  Future<void> removeToken() {
+    return box.remove(StorageKey.token.toString());
+  }
 
 }
 
