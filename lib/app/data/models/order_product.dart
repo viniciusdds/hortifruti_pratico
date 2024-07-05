@@ -15,7 +15,7 @@ class OrderProductModel {
     this.observation
   });
 
-  double get total => double.parse(value) * double.parse(quantity);
+  num get total => double.parse(value) * double.parse(quantity);
 
   factory OrderProductModel.fromJson(Map<String, dynamic> json) => OrderProductModel(
       product: ProductModel.fromJson(json['produto']),
