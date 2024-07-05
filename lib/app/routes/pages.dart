@@ -6,13 +6,14 @@ import 'package:app_hortifruti_pratico/app/modules/dashboard/binding.dart';
 import 'package:app_hortifruti_pratico/app/modules/dashboard/page.dart';
 import 'package:app_hortifruti_pratico/app/modules/login/binding.dart';
 import 'package:app_hortifruti_pratico/app/modules/login/page.dart';
+import 'package:app_hortifruti_pratico/app/modules/order/binding.dart';
+import 'package:app_hortifruti_pratico/app/modules/order/page.dart';
 import 'package:app_hortifruti_pratico/app/modules/product/binding.dart';
 import 'package:app_hortifruti_pratico/app/modules/product/page.dart';
 import 'package:app_hortifruti_pratico/app/modules/store/binding.dart';
 import 'package:app_hortifruti_pratico/app/modules/store/page.dart';
 import 'package:app_hortifruti_pratico/app/modules/user_address/binding.dart';
 import 'package:app_hortifruti_pratico/app/modules/user_address/page.dart';
-import 'package:app_hortifruti_pratico/app/modules/user_address_list/binding.dart';
 import 'package:app_hortifruti_pratico/app/modules/user_address_list/binding.dart';
 import 'package:app_hortifruti_pratico/app/modules/user_address_list/page.dart';
 import 'package:get/get.dart';
@@ -60,6 +61,11 @@ abstract class AppPages {
         name: Routes.userAddressList,
         page: () => UserAddressListPage(),
         binding: UserAddressListBinding()
+    ),
+    GetPage(
+        name: Routes.order,
+        page: () => OrderPage(),
+        binding: OrderBinding()
     ),
   ];
   

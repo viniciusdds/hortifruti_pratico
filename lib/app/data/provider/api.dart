@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:app_hortifruti_pratico/app/data/models/address.dart';
 import 'package:app_hortifruti_pratico/app/data/models/city.dart';
+import 'package:app_hortifruti_pratico/app/data/models/order.dart';
 import 'package:app_hortifruti_pratico/app/data/models/order_request.dart';
 import 'package:app_hortifruti_pratico/app/data/models/store.dart';
 import 'package:app_hortifruti_pratico/app/data/models/user.dart';
@@ -118,6 +119,23 @@ class Api extends GetConnect {
 
   Future postOrder(OrderRequestModel data) async {
     _errorHandler(await post('pedidos', jsonEncode(data)));
+  }
+
+  Future<List<OrderModel>> getOrders() async {
+    var response = _errorHandler(await get('pedidos'));
+
+    List<OrderModel> data = [];
+    for(var order in response.body){
+      data.add(OrderModel.fromJson(order));
+    }
+
+    return data;
+  }
+
+  Future<OrderModel> getOrder(String id) async {
+    var response = _errorHandler(await get('pedidos/$id'));
+
+    return OrderModel.fromJson(response.body);
   }
 
   Response _errorHandler(Response response) {
