@@ -12,6 +12,13 @@ class HomePage extends GetView<HomeController> {
       appBar: AppBar(
         title: Text('Hortifruti Prático'),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () => Get.toNamed(Routes.selectCity),
+              icon: const Icon(Icons.location_pin),
+              tooltip: 'Alterar cidade',
+          )
+        ],
       ),
       body: SafeArea(
         child: controller.obx((state) => ListView(
