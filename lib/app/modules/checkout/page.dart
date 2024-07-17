@@ -39,50 +39,44 @@ class CheckoutPage extends GetView<CheckoutController> {
               ),
               Visibility(
                 visible: !controller.isLogged,
-                child: Center(
-                  child: OutlinedButton(
-                      onPressed: controller.goToLogin,
-                      child: Text('Entre com a sua conta para cadastrar')
+                replacement: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      if(controller.addresses.isNotEmpty) ...[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                                  Expanded(child: _buildAddress()),
+                                  TextButton(
+                                    onPressed: controller.showAddressList,
+                                    child: const Text('Alterar'),
+                                  ),
+                              ],
+                          ),
+                          if(!controller.deliveryToMyAddress)
+                              Text(
+                                'O endereço selecionado não é atendido',
+                                textAlign: TextAlign.center,
+                                style: Get.textTheme.bodyLarge!.copyWith(color: Colors.red),
+                              )
+                      ]
+                      else
+                         Center(
+                           child: OutlinedButton(
+                              onPressed: controller.goToNewAddress,
+                              child: const Text('Cadastrar um endereço'),
+                           ),
+                         ),
+                    ],
                   ),
                 ),
-                replacement: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if(controller.addresses.isNotEmpty) ...[
-                              Expanded(child: _buildAddress()),
-                              TextButton(
-                                onPressed: controller.showAddressList,
-                                child: Text('Alterar'),
-                              ),
-                          ]
-                          else
-                              OutlinedButton(
-                                onPressed: controller.goToNewAddress,
-                                child: const Text('Cadastrar um endereço'),
-                              ),
-                        ],
-                      ),
-                    ),
-                    if(!controller.deliveryToMyAddress)
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: Text(
-                            'O endereço selecionado não é atendido',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.bodyLarge?.copyWith(color: Colors.red),
-                          ),
-                        ),
-                      )
-                  ],
+                child:  Center(
+                  child:  OutlinedButton(
+                      onPressed: controller.goToLogin,
+                      child: const Text('Entre com a sua conta para cadastrar')
+                  ),
                 ),
-
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
