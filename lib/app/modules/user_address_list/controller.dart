@@ -48,10 +48,12 @@ class UserAddressListController extends GetxController with StateMixin<List<Addr
          content: Text('O endereço foi excluído'),
        )
       );
-    }, onError: (error) => Get.dialog(
-        AlertDialog(
-          title: Text(error.toString()),
-        )
-    ));
+    }, onError: (error){
+      Get.dialog(
+          AlertDialog(
+            title: Text(error.toString()),
+          )
+      );
+    });
   }
 }

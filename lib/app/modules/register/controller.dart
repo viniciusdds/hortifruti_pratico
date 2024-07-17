@@ -1,4 +1,5 @@
 import 'package:app_hortifruti_pratico/app/data/models/user.dart';
+import 'package:app_hortifruti_pratico/app/data/models/user_login_request.dart';
 import 'package:app_hortifruti_pratico/app/data/models/user_profile_request.dart';
 import 'package:app_hortifruti_pratico/app/data/services/auth/service.dart';
 import 'package:app_hortifruti_pratico/app/modules/register/repository.dart';
@@ -17,7 +18,7 @@ class RegisterController extends GetxController {
   final _authService = Get.find<AuthService>();
   var nameController = TextEditingController(text: 'Nome de teste');
   var emailController = TextEditingController(text: 'teste2@email.com');
-  var phoneController = TextEditingController(text: '999999999');
+  var phoneController = TextEditingController(text: '15999999999');
   var passwordController = TextEditingController(text: 'senha123');
 
   void submit(){
@@ -34,16 +35,21 @@ class RegisterController extends GetxController {
       password: passwordController.text,
     );
 
-    _repository.register(userProfileRequest).then((value){
-      // ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
-      //     const SnackBar(content: Text('Seu perfil foi atualizado.'))
-      // );
+    _repository.register(userProfileRequest).then((value) async {
+      await _authService.login(UserLoginRequestModel(
+          email: emailController.text,
+          password: passwordController.text
+      ));
+      ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+          const SnackBar(content: Text('Cadastro concluído com sucesso.'))
+      );
 
-      // passwordController.text = '';
       Get.offAllNamed(Routes.dashboard);
-    }, onError: (error) => Get.dialog(
-        AlertDialog(title: Text(error.toString()))
-    ));
+    }, onError: (error) {
+      Get.dialog(
+          AlertDialog(title: Text(error.toString()))
+      );
+    });
   }
 
 }

@@ -60,9 +60,11 @@ class UserProfileController extends GetxController with StateMixin<UserModel> {
       );
 
       passwordController.text = '';
-    }, onError: (error) => Get.dialog(
-        AlertDialog(title: Text(error.toString()))
-    ));
+    }, onError: (error) {
+      Get.dialog(
+          AlertDialog(title: Text(error.toString()))
+      );
+    });
   }
 
 }

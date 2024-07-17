@@ -79,9 +79,11 @@ class UserAddressController extends GetxController with StateMixin<List<CityMode
       );
 
       Get.back(result: true);
-    }, onError: (error) => Get.dialog(
-        AlertDialog(title: Text(error.toString()))
-    ));
+    }, onError: (error) {
+      Get.dialog(
+          AlertDialog(title: Text(error.toString()))
+      );
+    });
   }
 
   void _updateddress(UserAddressRequestModel userAddressRequest) {
@@ -91,9 +93,11 @@ class UserAddressController extends GetxController with StateMixin<List<CityMode
       );
 
       Get.back(result: true);
-    }, onError: (error) => Get.dialog(
-        AlertDialog(title: Text(error.toString()))
-    ));
+    }, onError: (error) {
+      Get.dialog(
+          AlertDialog(title: Text(error.toString()))
+      );
+    });
   }
 
   void changeCity(int? cityIdSelected){
