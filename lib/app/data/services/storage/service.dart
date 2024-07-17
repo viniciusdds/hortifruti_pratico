@@ -5,6 +5,8 @@ class StorageService extends GetxService {
   final box = GetStorage();
   final _token = RxnString();
   String? get token => _token.value;
+  final _cityId = RxnInt();
+  int? get cityId => _cityId.value;
 
   @override
   void onInit() {
@@ -12,6 +14,12 @@ class StorageService extends GetxService {
     box.listenKey(
         StorageKey.token.toString(),
         (value) => _token.value = value
+    );
+
+    _cityId.value = box.read(StorageKey.cityId.toString());
+    box.listenKey(
+        StorageKey.cityId.toString(),
+            (value) => _cityId.value = value
     );
 
     super.onInit();
@@ -25,8 +33,13 @@ class StorageService extends GetxService {
     return box.remove(StorageKey.token.toString());
   }
 
+  Future<void> savaCityId(int cityId) {
+    return box.write(StorageKey.cityId.toString(), cityId);
+  }
+
 }
 
 enum StorageKey {
-  token
+  token,
+  cityId,
 }
