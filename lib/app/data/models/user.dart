@@ -9,7 +9,7 @@ class UserModel {
     required this.phone
   });
 
-  factory UserModel.froJson(Map<String, dynamic> json) => UserModel(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
       name: json['nome'],
       email: json['email'],
       phone: json['telefone']
