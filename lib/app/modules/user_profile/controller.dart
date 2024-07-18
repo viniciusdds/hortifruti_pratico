@@ -6,39 +6,47 @@ import 'package:app_hortifruti_pratico/app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class UserProfileController extends GetxController with StateMixin<UserModel> {
+class UserProfileController extends GetxController /*with StateMixin<UserModel>*/ {
 
   final UserProfileRepository _repository;
 
   UserProfileController(this._repository);
 
-  final formKey = GlobalKey<FormState>();
+  final formKey2 = GlobalKey<FormState>();
   final _authService = Get.find<AuthService>();
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var phoneController = TextEditingController();
   var passwordController = TextEditingController();
+  final loading = false.obs;
+  bool get isLogged => _authService.isLogged;
+  int teste = 0;
 
   @override
   void onInit() {
+    teste++;
     ever(_authService.user, (_) => fetchUser());
 
-    fetchUser();
-
+    //fetchUser();
+    print('Testando ${teste}');
     super.onInit();
   }
 
   void fetchUser(){
+    loading(true);
     _repository.getUser().then((data){
-    nameController.text = data.name;
-    emailController.text = data.email;
-    phoneController.text = data.phone;
+      nameController.text = data.name;
+      emailController.text = data.email;
+      phoneController.text = data.phone;
 
-    change(data, status: RxStatus.success());
+     // change(data, status: RxStatus.success());
+     loading(false);
     }, onError: (error) {
-    change(null, status: RxStatus.error(error));
+     // change(null, status: RxStatus.error(error));
+     loading(false);
     });
   }
+
   void logout() async {
     await _authService.logout();
 
@@ -48,7 +56,7 @@ class UserProfileController extends GetxController with StateMixin<UserModel> {
   void submit(){
     Get.focusScope!.unfocus();
 
-    if(!formKey.currentState!.validate()){
+    if(!formKey2.currentState!.validate()){
       return;
     }
 
@@ -65,11 +73,9 @@ class UserProfileController extends GetxController with StateMixin<UserModel> {
       );
 
       passwordController.text = '';
-    }, onError: (error) {
-      Get.dialog(
-          AlertDialog(title: Text(error.toString()))
-      );
-    });
+    }, onError: (error) => Get.dialog(
+        AlertDialog(title: Text(error.toString()))
+    ));
   }
 
 }

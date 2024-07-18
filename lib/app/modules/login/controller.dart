@@ -23,22 +23,16 @@ class LoginController extends GetxController {
         password: passwordController.text
     );
 
-    _authService.login(
-        userLogRequestModel
-    ).then((value) {
-
-      if(Get.routing.previous == Routes.checkout){
-        Get.back();
-      }else{
-        Get.offAllNamed(Routes.dashboard, arguments: 1);
-      }
-
-    }, onError: (error){
-      Get.dialog(
-        AlertDialog(
-          title: Text(error.toString()),
-        )
-      );
-    });
+    _authService
+        .login(userLogRequestModel)
+        .then((value) {
+          Get.back();
+        }, onError: (error){
+          Get.dialog(
+            AlertDialog(
+              title: Text(error.toString()),
+            )
+          );
+        });
   }
 }
