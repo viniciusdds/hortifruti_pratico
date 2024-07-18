@@ -28,7 +28,7 @@ class LoginController extends GetxController {
     ).then((value) {
 
       if(Get.routing.previous == Routes.checkout){
-        Get.back(result: true);
+        Get.back();
       }else{
         Get.offAllNamed(Routes.dashboard, arguments: 1);
       }

@@ -8,7 +8,7 @@ class CheckoutPage extends GetView<CheckoutController> {
   @override
   Widget build(BuildContext context) {
 
-    print(controller.isLogged);
+    //print(controller.isLogged);
 
     return Scaffold(
       appBar: AppBar(
