@@ -28,7 +28,6 @@ class UserProfileController extends GetxController /*with StateMixin<UserModel>*
     ever(_authService.user, (_) => fetchUser());
 
     //fetchUser();
-    print('Testando ${teste}');
     super.onInit();
   }
 

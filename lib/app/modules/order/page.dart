@@ -114,6 +114,19 @@ class OrderPage extends GetView<OrderController> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8
+                  ),
+                  child: Row(
+                    children: [
+                      const Expanded(child: Text('Troco para')),
+                      Text(state.trocoPara == null ? '' : NumberFormat.simpleCurrency().format(
+                          double.tryParse(state.trocoPara!)))
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 8
                   ),

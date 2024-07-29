@@ -13,6 +13,7 @@ class OrderModel {
   String deliveryCost;
   AddressModel? address;
   PaymentMethodModel? paymentMethod;
+  String? trocoPara;
 
   List<OrderProductModel> productList;
   List<OrderStatusModel> statusList;
@@ -31,6 +32,7 @@ class OrderModel {
     required this.statusList,
     this.observation,
     required this.createAt,
+    this.trocoPara
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
@@ -52,5 +54,6 @@ class OrderModel {
          ),
     observation: json['observacao'],
     createAt: DateTime.parse(json['created_at']),
+    trocoPara: json['troco_para']
   );
 }

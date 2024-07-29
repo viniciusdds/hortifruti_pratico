@@ -10,13 +10,15 @@ class OrderRequestModel {
   List<CartProductModel> cartProducts;
   AddressModel address;
   String? observation;
+  double? trocoPara;
 
   OrderRequestModel({
     required this.store,
     required this.paymentMethod,
     required this.cartProducts,
     required this.address,
-    this.observation
+    this.observation,
+    this.trocoPara
   });
 
   Map<String, dynamic> toJson() => {
@@ -26,6 +28,7 @@ class OrderRequestModel {
     'produtos': cartProducts.map((cartProduct) => cartProduct.toJson()).toList(),
     if(observation != null && observation!.trim().isNotEmpty)
       'observacao': observation,
+    'troco_para': trocoPara
   };
 
 }
